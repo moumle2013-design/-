@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحدي السرعة - مؤمل</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #fff;
+            font-family: system-ui, -apple-system, sans-serif;
+            text-align: center;
+            padding: 20px 10px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 20px;
+            max-width: 340px;
+            width: 100%;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        h2 { color: #ffd700; margin-top: 0; font-size: 24px; }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            font-size: 18px;
+            margin: 20px 0;
+            background: rgba(0,0,0,0.25);
+            padding: 12px;
+            border-radius: 12px;
+        }
+        .stat-num { color: #00ffcc; font-weight: bold; }
+        .btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 15px 0;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #2f3542;
+            transition: transform 0.1s;
+        }
+        .btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #2f3542; }
+        .start-btn {
+            background: #2ed573;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 18px;
+            border-radius: 25px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+        }
+        .start-btn:disabled { opacity: 0.5; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>🎮 تحدي السرعة - مؤمل</h2>
+        <p>اضغط بأسرع ما يمكنك قبل انتهاء الوقت!</p>
+        
+        <div class="stats">
+            <div>الوقت: <span id="t" class="stat-num">10</span></div>
+            <div>النقاط: <span id="s" class="stat-num">0</span></div>
+        </div>
+
+        <button id="b" class="btn" onclick="addPoint()" disabled>اضغط!</button><br>
+        <button id="go" class="start-btn" onclick="start()">ابدأ اللعبة 🚀</button>
+    </div>
+
+    <script>
+        let score = 0, time = 10, timer = null, active = false;
+        function start() {
+            score = 0; time = 10; active = true;
+            document.getElementById('s').innerText = score;
+            document.getElementById('t').innerText = time;
+            document.getElementById('b').disabled = false;
+            document.getElementById('go').disabled = true;
+            timer = setInterval(() => {
+                time--;
+                document.getElementById('t').innerText = time;
+                if(time <= 0) {
+                    clearInterval(timer);
+                    active = false;
+                    document.getElementById('b').disabled = true;
+                    document.getElementById('go').disabled = false;
+                    alert('🎉 انتهى الوقت يا مؤمل! مجموع نقاطك: ' + score);
+                }
+            }, 1000);
+        }
+        function addPoint() {
+            if(active) { score++; document.getElementById('s').innerText = score; }
+        }
+    </script>
+</body>
+</html>
+                     
